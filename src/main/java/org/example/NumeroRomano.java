@@ -3,25 +3,17 @@ package org.example;
 
 public class NumeroRomano {
 
-    private int numero;
+    public String convertToRomano(Integer numeroNatural) {
 
-    public String convertToRomano(int numero) {
+        char[] numeroChart = numeroNatural.toString().toCharArray();
 
-        switch (numero) {
-            case 4:
-                return "IV";
-
-            case 9:
-                return "IX";
+        if (numeroChart.length >= 2) {
+            String unidadRomana = pasarUnidad(Character.getNumericValue(numeroChart[1]));
+            String decenaRomana = pasarDecena(Character.getNumericValue(numeroChart[0]));
+            return decenaRomana + unidadRomana;
+        } else {
+            return pasarUnidad(Character.getNumericValue(numeroChart[0]));
         }
-
-        if (numero < 4) {
-            return sumarLasI(1, numero, "");
-
-        } else if (numero < 9) {
-            return sumarLasI(6, numero, "V");
-        }
-        return null;
     }
 
 
@@ -30,6 +22,34 @@ public class NumeroRomano {
             numeroRomano += "I";
         }
         return numeroRomano;
+    }
+
+    private String pasarUnidad(int unidad) {
+        switch (unidad) {
+            case 4:
+                return "IV";
+
+            case 9:
+                return "IX";
+        }
+
+        if (unidad < 4) {
+            return sumarLasI(1, unidad, "");
+
+        } else if (unidad < 9) {
+            return sumarLasI(6, unidad, "V");
+        }
+        return null;
+    }
+
+    private String pasarDecena(int decena) {
+        switch (decena) {
+            case 1:
+                return "X";
+            case 2:
+                return "XX";
+        }
+        return null;
     }
 
 }
