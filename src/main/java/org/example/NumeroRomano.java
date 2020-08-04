@@ -16,7 +16,6 @@ public class NumeroRomano {
         }
     }
 
-
     private String sumarLasI(int inicioCuenta, int numero, String numeroRomano) {
         for (int i = inicioCuenta; i <= numero; i++) {
             numeroRomano += "I";
@@ -44,12 +43,26 @@ public class NumeroRomano {
 
     private String pasarDecena(int decena) {
         switch (decena) {
-            case 1:
-                return "X";
-            case 2:
-                return "XX";
+            case 4:
+                return "XL";
+
+            case 9:
+                return "XC";
+        }
+
+        if (decena < 4) {
+            return sumarLasX(1, decena, "");
+
+        } else if (decena < 9) {
+            return sumarLasX(6, decena, "L");
         }
         return null;
     }
 
+    private String sumarLasX(int inicioCuenta, int numero, String numeroRomano) {
+        for (int i = inicioCuenta; i <= numero; i++) {
+            numeroRomano += "X";
+        }
+        return numeroRomano;
+    }
 }

@@ -3,6 +3,12 @@ package org.example;
 import org.junit.Assert;
 import org.junit.Test;
 
+import java.lang.reflect.Array;
+import java.util.Arrays;
+import java.util.List;
+import java.util.stream.Collector;
+import java.util.stream.Collectors;
+
 
 public class AppTest {
 
@@ -129,4 +135,56 @@ public class AppTest {
         Assert.assertEquals(romano, "XX");
     }
 
+    @Test
+    public void verificarVeintenaANumeroRomano(){
+        List<Integer> numerosNaturales = Arrays.asList(20, 21, 22,23,24,25,26,27,28,29);
+        List<String> romanos = numerosNaturales.stream().map(
+                number -> numerosRomanos.convertToRomano(number)).collect(Collectors.toList());
+
+        Assert.assertEquals(romanos.get(0), "XX");
+        Assert.assertEquals(romanos.get(1), "XXI");
+        Assert.assertEquals(romanos.get(2), "XXII");
+        Assert.assertEquals(romanos.get(3), "XXIII");
+        Assert.assertEquals(romanos.get(4), "XXIV");
+        Assert.assertEquals(romanos.get(5), "XXV");
+        Assert.assertEquals(romanos.get(6), "XXVI");
+        Assert.assertEquals(romanos.get(7), "XXVII");
+        Assert.assertEquals(romanos.get(8), "XXVIII");
+        Assert.assertEquals(romanos.get(9), "XXIX");
+    }
+
+    @Test
+    public void verificartTreintenaANumeroRomano(){
+        List<Integer> numerosNaturales = Arrays.asList(30, 31, 32,33,34,35,36,37,38,39);
+        List<String> romanos = numerosNaturales.stream().map(
+                number -> numerosRomanos.convertToRomano(number)).collect(Collectors.toList());
+
+        Assert.assertEquals(romanos.get(0), "XXX");
+        Assert.assertEquals(romanos.get(1), "XXXI");
+        Assert.assertEquals(romanos.get(2), "XXXII");
+        Assert.assertEquals(romanos.get(3), "XXXIII");
+        Assert.assertEquals(romanos.get(4), "XXXIV");
+        Assert.assertEquals(romanos.get(5), "XXXV");
+        Assert.assertEquals(romanos.get(6), "XXXVI");
+        Assert.assertEquals(romanos.get(7), "XXXVII");
+        Assert.assertEquals(romanos.get(8), "XXXVIII");
+        Assert.assertEquals(romanos.get(9), "XXXIX");
+    }
+
+    @Test
+    public void verificartDecimalesRomanos(){
+        List<Integer> numerosNaturales = Arrays.asList(40, 50 ,60, 70, 80, 90, 88, 95);
+        List<String> romanos = numerosNaturales.stream().map(
+                number -> numerosRomanos.convertToRomano(number)).collect(Collectors.toList());
+
+        Assert.assertEquals(romanos.get(0), "XL");
+        Assert.assertEquals(romanos.get(1), "L");
+        Assert.assertEquals(romanos.get(2), "LX");
+        Assert.assertEquals(romanos.get(3), "LXX");
+        Assert.assertEquals(romanos.get(4), "LXXX");
+        Assert.assertEquals(romanos.get(5), "XC");
+        Assert.assertEquals(romanos.get(6), "LXXXVIII");
+        Assert.assertEquals(romanos.get(7), "XCV");
+
+    }
 }
