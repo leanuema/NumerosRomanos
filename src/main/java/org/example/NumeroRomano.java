@@ -1,68 +1,49 @@
 package org.example;
 
 
+import java.util.Arrays;
+import java.util.List;
+
 public class NumeroRomano {
+
+    private static final List<String> simboloRomano = Arrays.asList("I", "V", "X", "L", "C", "D", "M");
 
     public String convertToRomano(Integer numeroNatural) {
 
         char[] numeroChart = numeroNatural.toString().toCharArray();
+        int inc = 0;
+        String resultado = "";
 
-        if (numeroChart.length >= 2) {
-            String unidadRomana = pasarUnidad(Character.getNumericValue(numeroChart[1]));
-            String decenaRomana = pasarDecena(Character.getNumericValue(numeroChart[0]));
-            return decenaRomana + unidadRomana;
-        } else {
-            return pasarUnidad(Character.getNumericValue(numeroChart[0]));
+        for (int i = numeroChart.length - 1; i >= 0; i--) {
+            String romano = generico(Character.getNumericValue(numeroChart[i]), inc, 1 + inc, 2 + inc);
+            resultado = romano + resultado;
+            inc += 2;
         }
+        return resultado;
     }
 
-    private String sumarLasI(int inicioCuenta, int numero, String numeroRomano) {
+    private String sumar(int inicioCuenta, int numero, String numeroRomano, String incrementoRomano) {
         for (int i = inicioCuenta; i <= numero; i++) {
-            numeroRomano += "I";
+            numeroRomano += incrementoRomano;
         }
         return numeroRomano;
     }
 
-    private String pasarUnidad(int unidad) {
-        switch (unidad) {
-            case 4:
-                return "IV";
-
-            case 9:
-                return "IX";
-        }
-
-        if (unidad < 4) {
-            return sumarLasI(1, unidad, "");
-
-        } else if (unidad < 9) {
-            return sumarLasI(6, unidad, "V");
-        }
-        return null;
-    }
-
-    private String pasarDecena(int decena) {
+    private String generico(int decena, int x, int y, int z) {
         switch (decena) {
             case 4:
-                return "XL";
+                return simboloRomano.get(x) + simboloRomano.get(y);
 
             case 9:
-                return "XC";
+                return simboloRomano.get(x) + simboloRomano.get(z);
         }
 
         if (decena < 4) {
-            return sumarLasX(1, decena, "");
+            return sumar(1, decena, "", simboloRomano.get(x));
 
         } else if (decena < 9) {
-            return sumarLasX(6, decena, "L");
+            return sumar(6, decena, simboloRomano.get(y), simboloRomano.get(x));
         }
         return null;
-    }
-
-    private String sumarLasX(int inicioCuenta, int numero, String numeroRomano) {
-        for (int i = inicioCuenta; i <= numero; i++) {
-            numeroRomano += "X";
-        }
-        return numeroRomano;
     }
 }
