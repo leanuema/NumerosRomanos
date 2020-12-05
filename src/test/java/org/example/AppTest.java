@@ -9,11 +9,9 @@ import java.util.List;
 import java.util.stream.Collector;
 import java.util.stream.Collectors;
 
-
 public class AppTest {
 
     NumeroRomano numerosRomanos = new NumeroRomano();
-
 
     @Test
     public void pasar1ANumeroRomano() {
@@ -185,6 +183,25 @@ public class AppTest {
         Assert.assertEquals(romanos.get(5), "XC");
         Assert.assertEquals(romanos.get(6), "LXXXVIII");
         Assert.assertEquals(romanos.get(7), "XCV");
+
+    }
+
+    @Test
+    public void verificarRomanos(){
+        List<Integer> numerosNaturales = Arrays.asList(100, 200 ,300 , 400, 500, 600, 700, 800, 900, 3234);
+        List<String> romanos = numerosNaturales.stream().map(
+                number -> numerosRomanos.convertToRomano(number)).collect(Collectors.toList());
+
+        Assert.assertEquals(romanos.get(0), "C");
+        Assert.assertEquals(romanos.get(1), "CC");
+        Assert.assertEquals(romanos.get(2), "CCC");
+        Assert.assertEquals(romanos.get(3), "CD");
+        Assert.assertEquals(romanos.get(4), "D");
+        Assert.assertEquals(romanos.get(5), "DC");
+        Assert.assertEquals(romanos.get(6), "DCC");
+        Assert.assertEquals(romanos.get(7), "DCCC");
+        Assert.assertEquals(romanos.get(8), "CM");
+        Assert.assertEquals(romanos.get(9), "MMMCCXXXIV");
 
     }
 }

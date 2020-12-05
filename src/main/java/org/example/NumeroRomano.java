@@ -6,7 +6,7 @@ import java.util.List;
 
 public class NumeroRomano {
 
-    private static final List<String> simboloRomano = Arrays.asList("I", "V", "X", "L", "C", "D", "M");
+    private static final List<String> romeSymbol = Arrays.asList("I", "V", "X", "L", "C", "D", "M");
 
     public String convertToRomano(Integer numeroNatural) {
 
@@ -15,34 +15,34 @@ public class NumeroRomano {
         String resultado = "";
 
         for (int i = numeroChart.length - 1; i >= 0; i--) {
-            String romano = generico(Character.getNumericValue(numeroChart[i]), inc, 1 + inc, 2 + inc);
+            String romano = generic(Character.getNumericValue(numeroChart[i]), inc, 1 + inc, 2 + inc);
             resultado = romano + resultado;
             inc += 2;
         }
         return resultado;
     }
 
-    private String sumar(int inicioCuenta, int numero, String numeroRomano, String incrementoRomano) {
+    private String sum(int inicioCuenta, int numero, String numeroRomano, String incrementoRomano) {
         for (int i = inicioCuenta; i <= numero; i++) {
             numeroRomano += incrementoRomano;
         }
         return numeroRomano;
     }
 
-    private String generico(int decena, int x, int y, int z) {
+    private String generic(int decena, int x, int y, int z) {
         switch (decena) {
             case 4:
-                return simboloRomano.get(x) + simboloRomano.get(y);
+                return romeSymbol.get(x) + romeSymbol.get(y);
 
             case 9:
-                return simboloRomano.get(x) + simboloRomano.get(z);
+                return romeSymbol.get(x) + romeSymbol.get(z);
         }
 
         if (decena < 4) {
-            return sumar(1, decena, "", simboloRomano.get(x));
+            return sum(1, decena, "", romeSymbol.get(x));
 
         } else if (decena < 9) {
-            return sumar(6, decena, simboloRomano.get(y), simboloRomano.get(x));
+            return sum(6, decena, romeSymbol.get(y), romeSymbol.get(x));
         }
         return null;
     }
